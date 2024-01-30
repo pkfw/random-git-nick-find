@@ -1,5 +1,8 @@
 # random-git-nick-find
 
+## 실행
+vs-code 라이브 서버 extension 을 사용해서 실행할 것!
+
 ## [input] 랜덤 문자 갯수 입력
 생성할 문자 갯수 지정
 
