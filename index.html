@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Git Nick</title>
+  <script>
+    window.onload = () => {
+      var num = document.getElementById('num');
+      var time = document.getElementById('time');
+      var ipt = document.getElementById('ipt');
+      var btn = document.getElementById('btn');
+      var aa = document.getElementById('aa');
+
+      var includeNumbers = true;
+
+      document.getElementById('toggleSwitch').onclick = function() {
+        includeNumbers = !includeNumbers;
+        this.classList.toggle('active');
+      };
+
+      btn.onclick = () => {
+        const en = generateRandomId(num.value, includeNumbers);
+        console.log('random nick :>> ', en);
+        const src = `https://github.com/search?q=${en}&type=users`;
+        ipt.value = en;
+        const newWindow = window.open(src, '_blank');
+        aa.href = src;
+        // aa.innerText = src;
+
+        setTimeout(() => {
+          newWindow.close();
+        }, time.value);
+      }
+    }
+
+    function generateRandomId(n, includeNumbers = false) {
+      let result = '';
+      let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+      if (includeNumbers) {
+        characters += '0123456789';
+      }
+      const charactersLength = characters.length;
+
+      for (let i = 0; i < n; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      }
+
+      return result;
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f7f7f7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    input, button, a {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      outline: none;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    a {
+      display: inline-block;
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .toggle-switch {
+      width: 60px;
+      height: 30px;
+      background-color: #ccc;
+      border-radius: 15px;
+      position: relative;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .toggle-switch.active {
+      background-color: #4CAF50;
+    }
+
+    .toggle-knob {
+      width: 25px;
+      height: 25px;
+      background-color: white;
+      border-radius: 50%;
+      position: absolute;
+      top: 2.5px;
+      left: 2.5px;
+      transition: left 0.3s;
+    }
+
+    .toggle-switch.active .toggle-knob {
+      left: 32.5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <label for="num">랜덤문자갯수</label>
+    <input id="num" type="text" placeholder="랜덤문자갯수" value="3">
+    <br>
+    <label for="time">열린 윈도우 종료 타이머 (ms)</label>
+    <input id="time" type="text" placeholder="타이머" value="1300">
+    <br>
+    <label for="toggleSwitch">숫자포함 여부 체크</label>
+    <div id="toggleSwitch" class="toggle-switch active">
+      <div class="toggle-knob"></div>
+    </div>
+    <input id="ipt" type="text">
+    <button id="btn">변환하기</button>
+    <br>
+    <a id="aa" href="" target="_blank">GitHub 검색 결과 보기</a>
+  </div>
+</body>
+</html>
